@@ -1172,12 +1172,14 @@ public:
                 [listener = mListener, slots = slots]() { listener->onBuffersDiscarded(slots); });
     }
 
+#ifndef TARGET_SHIPS_MIUICAMERA
     void onBufferDetached(int slot, uint64_t bufferId) override {
         AsyncProducerListenerWorker::getInstance().post(
                 [listener = mListener, slot = slot, bufferId = bufferId]() {
                     listener->onBufferDetached(slot, bufferId);
                 });
     }
+#endif
 
     void onBufferAcquired(uint64_t bufferId, uint64_t frameNumber) override {
         AsyncProducerListenerWorker::getInstance().post(
@@ -1194,10 +1196,12 @@ public:
     };
 
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
     void onBufferAttached() override {
         AsyncProducerListenerWorker::getInstance().post(
                 [listener = mListener]() { listener->onBufferAttached(); });
     }
+#endif
 #endif
 };
 

@@ -210,10 +210,12 @@ private:
     // callback is registered by the listener. When set to false,
     // mConnectedProducerListener will not trigger onBufferReleased() callback.
     bool mBufferReleasedCbEnabled;
+#ifndef TARGET_SHIPS_MIUICAMERA
     // mBufferAttachedCbEnabled is used to indicate whether onBufferAttached()
     // callback is registered by the listener. When set to false,
     // mConnectedProducerListener will not trigger onBufferAttached() callback.
     bool mBufferAttachedCbEnabled;
+#endif
     //  mBufferAcquiredCbEnabled is used indicate whether onBufferAcquired()
     //  callback is registered by the listener. When set to false,
     //  mConnectedProducerListener will not trigger onBufferAcquired() callback.

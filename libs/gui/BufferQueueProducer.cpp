@@ -1503,7 +1503,9 @@ status_t BufferQueueProducer::connect(const sp<IProducerListener>& listener,
                 mCore->mBufferAcquiredCbEnabled = listener->needsAcquiredNotify();
                 mCore->mBufferDroppedCbEnabled = listener->needsDroppedNotify();
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
                 mCore->mBufferAttachedCbEnabled = listener->needsAttachNotify();
+#endif
 #endif
             }
             break;

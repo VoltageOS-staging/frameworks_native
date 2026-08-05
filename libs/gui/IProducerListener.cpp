@@ -87,6 +87,7 @@ public:
     }
 
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
     virtual void onBufferDetached(int slot, uint64_t bufferId) {
         Parcel data, reply;
         data.writeInterfaceToken(IProducerListener::getInterfaceDescriptor());
@@ -117,6 +118,7 @@ public:
         }
         return result;
     }
+#endif
 #endif
 };
 
@@ -194,6 +196,7 @@ status_t BnProducerListener::onTransact(uint32_t code, const Parcel& data,
             return NO_ERROR;
         }
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
         case ON_BUFFER_DETACHED: {
             CHECK_INTERFACE(IProducerListener, data, reply);
             int slot;
@@ -220,6 +223,7 @@ status_t BnProducerListener::onTransact(uint32_t code, const Parcel& data,
             reply->writeBool(needsAttachNotify());
             return NO_ERROR;
 #endif
+#endif
     }
     return BBinder::onTransact(code, data, reply, flags);
 }
@@ -234,9 +238,11 @@ void BnProducerListener::onBuffersDiscarded(const std::vector<int32_t>& /*discar
 }
 
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
 bool BnProducerListener::needsAttachNotify() {
     return true;
 }
+#endif
 #endif
 
 } // namespace android

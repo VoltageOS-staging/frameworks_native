@@ -460,9 +460,11 @@ status_t BufferQueueConsumer::attachBuffer(int* outSlot,
         }
 
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
         if (mCore->mBufferAttachedCbEnabled) {
             listener = mCore->mConnectedProducerListener;
         }
+#endif
 #endif
 
         mCore->mActiveBuffers.insert(found);
@@ -497,9 +499,11 @@ status_t BufferQueueConsumer::attachBuffer(int* outSlot,
     }
 
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
     if (listener != nullptr) {
         listener->onBufferAttached();
     }
+#endif
 #endif
 
     return NO_ERROR;

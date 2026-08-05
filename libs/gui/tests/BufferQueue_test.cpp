@@ -1296,6 +1296,7 @@ TEST_F(BufferQueueTest, TestConsumerDetachProducerListener) {
 }
 
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
 struct BufferAttachedListener : public BnProducerListener {
 public:
     BufferAttachedListener(bool enable) : mEnabled(enable), mAttached(0) {}
@@ -1378,6 +1379,7 @@ TEST_F(BufferQueueTest, TestConsumerAttachProducerListener) {
     ASSERT_EQ(OK, mConsumer->attachBuffer(&slot, buffer));
     ASSERT_EQ(1, pl2->getNumAttached());
 }
+#endif
 #endif
 
 TEST_F(BufferQueueTest, TestStaleBufferHandleSentAfterDisconnect) {

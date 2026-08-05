@@ -633,13 +633,21 @@ cc_library_shared {
     name: "libgui",
     double_loadable: true,
     vendor_available: true,
-    defaults: ["libgui_defaults"]
+    defaults: ["libgui_defaults"],
+    cflags: [] + select(soong_config_variable("gui", "target_ships_miuicamera"), {
+        any @ value: ["-DTARGET_SHIPS_MIUICAMERA"],
+        default: [],
+    }),
 }
 
 cc_library_shared {
     name: "libgui_vendor",
     vendor: true,
-    defaults: ["libgui_defaults"]
+    defaults: ["libgui_defaults"],
+    cflags: [] + select(soong_config_variable("gui", "target_ships_miuicamera"), {
+        any @ value: ["-DTARGET_SHIPS_MIUICAMERA"],
+        default: [],
+    }),
 }
 
 subdirs = ["tests"]

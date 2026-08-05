@@ -64,6 +64,7 @@ public:
     virtual bool needsDroppedNotify() { return false; }
 
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
     // onBufferAttached is called from IGraphicBufferConsumer::attachBuffer to
     // notify the producer that a buffer is attached.
     //
@@ -72,6 +73,7 @@ public:
     // returns {@code true}.
     virtual void onBufferAttached() {} // Asynchronous
     virtual bool needsAttachNotify() { return false; }
+#endif
 #endif
 };
 
@@ -97,7 +99,9 @@ public:
     virtual bool needsReleaseNotify();
     virtual void onBuffersDiscarded(const std::vector<int32_t>& slots);
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
     virtual bool needsAttachNotify();
+#endif
 #endif
 };
 
@@ -113,7 +117,9 @@ public:
     virtual void onBufferReleased() {}
     virtual bool needsReleaseNotify() { return false; }
 #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(BQ_CONSUMER_ATTACH_CALLBACK)
+#ifndef TARGET_SHIPS_MIUICAMERA
     virtual bool needsAttachNotify() { return false; }
+#endif
 #endif
 };
 

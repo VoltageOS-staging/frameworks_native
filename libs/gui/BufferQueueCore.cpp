@@ -98,7 +98,9 @@ BufferQueueCore::BufferQueueCore()
         mLinkedToDeath(),
         mConnectedProducerListener(),
         mBufferReleasedCbEnabled(false),
+#ifndef TARGET_SHIPS_MIUICAMERA
         mBufferAttachedCbEnabled(false),
+#endif
         mBufferAcquiredCbEnabled(false),
         mBufferDroppedCbEnabled(false),
         mSlots(BufferQueueDefs::NUM_BUFFER_SLOTS),
